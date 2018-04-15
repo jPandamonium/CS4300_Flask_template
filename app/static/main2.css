@@ -1,13 +1,3 @@
-@media (min-width: 1200px) {
-  .container {
-      max-width: 970px;
-  }
-}
-@media (min-width:400px){
-  .global-search {
-  padding: 20px 0;
-  text-align:center;
-}
 body {
   background-color: #ecdfec;
   padding-top: 8%;
@@ -31,11 +21,43 @@ h1 {
   font-family: PT Sans, sans-serif;
   color: #696969;
   letter-spacing: 0.15em;
+  transition: all 1.5s ease;
+}
+
+h1.newpos {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  font-size: 35px;
+}
+
+#home {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  top: 100px;
+  left: 50px;
+  font-family: Lora, sans-serif;
+  font-style: italic;
+  font-size: 12px;
+  color: #c5a0c5;
+  letter-spacing: 0.125em;
+  text-transform: lowercase;
+  transition: opacity 2s ease;
+  transition: color 0.75s ease;
+  cursor: pointer;
+}
+
+#home:hover {
+  color: gray;
 }
 
 /**FORM CSS**/
 .form {
   margin-bottom: 60px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 1s ease;
 }
 
 .form-group {
@@ -183,6 +205,18 @@ input::placeholder {
 /**RESULTS CSS**/
 .results {
   width: 40%;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 1s ease-in-out;
+}
+
+.active, #loader.active, #home.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.results.active {
+  transform: translateY(-300px);
 }
 
 .item-container {
@@ -234,6 +268,10 @@ input::placeholder {
   font-weight: bold;
 }
 
+.fa-thumbs-up, .fa-thumbs-down {
+  margin: 20px;
+}
+
 .fa-thumbs-up:hover, .fa-thumbs-down:hover {
   color: #C0C0C0;
 }
@@ -250,3 +288,31 @@ input::placeholder {
   text-align: center;
   margin: auto;
 }
+
+/**LOADER CSS**/
+#loader {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 250ms ease;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 80px;
+  height: 80px;
+  margin: -75px 0 0 -75px;
+  border: 10px solid #F5F5F5;
+  border-radius: 50%;
+  border-top: 10px solid #c5a0c5;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }

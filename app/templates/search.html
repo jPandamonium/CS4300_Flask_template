@@ -1,6 +1,5 @@
 <html>
     <head>
-        <!-- <link rel="stylesheet" href="static/bootstrap.min.css"> -->
         <link rel="stylesheet" href="static/main2.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Heebo">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans">
@@ -12,13 +11,14 @@
           Crystal Liu (crl95), Jerry Pan (jp884), Kathleen Li (kl769), Christina Zhao (cfz8), Claire Tang (yt338)
       </div>
       <h1> gifter </h1>
+      <div class = "button" id = "home"><< Back to Search Page</div>
 
-      <div class = "form">
+<!-- FORM HTML -->
+      <div class = "form active">
         <div class = "form-group">
             <span class = "form-label"><span class = "highlight">Who</span> is the gift for?</span>
-            <!-- <span class="blinking-cursor">|</span> -->
             <span class = "form-input-group">
-              <input id="input" type="text" name="search" class="form-input"
+              <input id="input-who" type="text" name="search" class="form-input"
               placeholder="e.g. friend, boss who likes cats" onfocus="this.placeholder = ''"
               onblur="this.placeholder = 'e.g. friend, boss who likes cats'" >
               <span class = "border-bottom"></span>
@@ -27,14 +27,39 @@
         <div class = "form-group">
             <span class = "form-label"><span class = "highlight">What</span> is the occasion?</span>
             <span class = "form-input-group">
-              <input id="input" type="text" name="search" class="form-input"
+              <input id="input-what" type="text" name="search" class="form-input"
               placeholder="e.g. 21st birthday, got into college" onfocus="this.placeholder = ''"
               onblur="this.placeholder = 'e.g. 21st birthday, got into college'" >
               <span class = "border-bottom"></span>
             </span>
         </div>
-        <div class = "button submit">Happy Gifting!</div>
+        <div class = "button submit" id = "query">Happy Gifting!</div>
       </div>
-    </body>
 
+      <div id="loader"></div>
+
+<!-- RESULTS HTML -->
+      <div class = "results">
+          <div class = "item-container">
+              <div class = "item-image"></div>
+              <div class = "item-desc">
+                  <div class = "item-category">{{ category }}</div>
+                  <div class = "item-title">{{ title }}</div>
+                  <div class = "item-price">
+                      <span class = "desc-label">PRICE:</span>
+                      <span class = "price-num highlight">{{ price }}</span>
+                  </div>
+                  <div class = "item-rating">
+                      <span class = "desc-label">RATING:</span>
+                      <span class = "rating-stars highlight" >{{ rating }}<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                  </div>
+              </div>
+              <div class = "item-relevance">
+                  <div class = "button highlight"><i class="fas fa-thumbs-up"></i></div>
+                  <div class = "button highlight"><i class="fas fa-thumbs-down"></i></div>
+              </div>
+          </div>
+      </div>
+      <script src="script.js"></script>
+    </body>
 </html>
