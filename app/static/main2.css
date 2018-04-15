@@ -1,0 +1,252 @@
+@media (min-width: 1200px) {
+  .container {
+      max-width: 970px;
+  }
+}
+@media (min-width:400px){
+  .global-search {
+  padding: 20px 0;
+  text-align:center;
+}
+body {
+  background-color: #ecdfec;
+  padding-top: 8%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.topcorner {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  text-align: right;
+  font-size: 12px;
+  color: #C0C0C0;
+  font-family: sans-serif;
+}
+
+h1 {
+  font-size: 65px;
+  font-family: PT Sans, sans-serif;
+  color: #696969;
+  letter-spacing: 0.15em;
+}
+
+/**FORM CSS**/
+.form {
+  margin-bottom: 60px;
+}
+
+.form-group {
+  margin: 40px;
+  height: 30px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.form-label {
+  /*border: 1px solid red;*/
+  height: 100%;
+  font-family: Lora, sans-serif;
+  font-size: 25px;
+  font-style: italic;
+  color: gray;
+  letter-spacing: 0.125em;
+  text-transform: lowercase;
+  padding-bottom: 10px;
+}
+
+.form-input {
+  height: 100%;
+  width: 450px;
+  font-family: PT Sans, sans-serif;
+  font-size: 20px;
+  color: gray;
+  letter-spacing: 0.125em;
+  text-align: center;
+  padding-left: 20px;
+  background-color: transparent;
+  border: none;
+  padding-bottom: 10px;
+}
+
+.form-input-group {
+  position: relative;
+}
+
+.border-bottom {
+  position: absolute;
+  left: 50%;
+  width: 10px;
+  visibility: hidden;
+  z-index: 1000;
+  border-top: 2px solid #c5a0c5;
+  transition: all 250ms ease-in-out;
+}
+
+input::placeholder {
+  font-family: PT Sans, sans-serif;
+  font-size: 20px;
+  color: #C0C0C0;
+  letter-spacing: 0.125em;
+}
+
+.form-input:focus {
+  outline: none;
+}
+
+.form-input:focus ~ .border-bottom {
+  left: 0;
+  width:450px;
+  visibility: visible;
+  border-top: 2px solid #c5a0c5;
+}
+
+.submit {
+  vertical-align: middle;
+  font-family: Lora, sans-serif;
+  font-style: italic;
+  font-size: 20px;
+  letter-spacing: 0.125em;
+  line-height: 70px;
+  text-transform: lowercase;
+  width: 200px;
+  height: 70px;
+  background-color: #c5a0c5;
+  color: #F5F5F5;
+  transition: all 0.5s ease;
+}
+
+.submit:hover {
+  box-shadow: 0px 3px 10px gray;
+  cursor: pointer;
+}
+
+/*.blinking-cursor {
+  font-weight: lighter;
+  font-family: PT Sans, sans-serif;
+  font-size: 30px;
+  color: #2E3D48;
+  -webkit-animation: 1s blink step-end infinite;
+  -moz-animation: 1s blink step-end infinite;
+  -ms-animation: 1s blink step-end infinite;
+  -o-animation: 1s blink step-end infinite;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: black;
+  }
+}
+
+@-moz-keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: gray;
+  }
+}
+
+@-webkit-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: gray;
+  }
+}
+
+@-ms-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: gray;
+  }
+}
+
+@-o-keyframes "blink" {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: gray;
+  }
+}*/
+
+/**RESULTS CSS**/
+.results {
+  width: 40%;
+}
+
+.item-container {
+  height: 160px;
+  display: flex;
+  background-color: white;
+  transition: all 0.5s ease;
+  margin-bottom: 40px;
+  min-width: 450px;
+}
+
+.item-container:hover {
+  box-shadow: 0px 3px 5px #C0C0C0;
+  cursor: pointer;
+}
+
+.item-image {
+  flex-grow: 2;
+  background-color: gray;
+  margin: 20px;
+  min-width: 120px;
+  max-width: 120px;
+}
+
+.item-desc {
+  flex-grow: 3;
+  padding: 20px;
+}
+.item-title {
+  font-size: 30px;
+  font-family: PT Sans, sans-serif;
+  color: gray;
+  text-transform: lowercase;
+  letter-spacing: 0.125em;
+  line-height: 35px;
+  margin-bottom: 20px;
+}
+
+.item-category, .desc-label {
+  font-family: Lora, sans-serif;
+  color: #C0C0C0;
+  letter-spacing: 0.125em;
+  text-transform: lowercase;
+}
+
+.highlight {
+  font-family: Lora, sans-serif;
+  color: #c5a0c5;
+  font-weight: bold;
+}
+
+.fa-thumbs-up:hover, .fa-thumbs-down:hover {
+  color: #C0C0C0;
+}
+
+.item-relevance {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  text-align: center;
+  margin: auto;
+}
