@@ -9,16 +9,18 @@
     <body>
       <div class = "topcorner">
           Crystal Liu (crl95), Jerry Pan (jp884), Kathleen Li (kl769), Christina Zhao (cfz8), Claire Tang (yt338)
+          {{output_message }}
       </div>
       <h1> gifter </h1>
       <div class = "button" id = "home"><< Back to Search Page</div>
+
 
 <!-- FORM HTML -->
       <div class = "form active">
         <div class = "form-group">
             <span class = "form-label"><span class = "highlight">Who</span> is the gift for?</span>
             <span class = "form-input-group">
-              <input id="input-who" type="text" name="search" class="form-input"
+              <input id="input-who" type="text" name="search1" class="form-input"
               placeholder="e.g. friend, boss who likes cats" onfocus="this.placeholder = ''"
               onblur="this.placeholder = 'e.g. friend, boss who likes cats'" >
               <span class = "border-bottom"></span>
@@ -27,7 +29,7 @@
         <div class = "form-group">
             <span class = "form-label"><span class = "highlight">What</span> is the occasion?</span>
             <span class = "form-input-group">
-              <input id="input-what" type="text" name="search" class="form-input"
+              <input id="input-what" type="text" name="search2" class="form-input"
               placeholder="e.g. 21st birthday, got into college" onfocus="this.placeholder = ''"
               onblur="this.placeholder = 'e.g. 21st birthday, got into college'" >
               <span class = "border-bottom"></span>
@@ -39,19 +41,22 @@
       <div id="loader"></div>
 
 <!-- RESULTS HTML -->
+<!-- {% if data %} -->
+
+  {% for d in data %}
       <div class = "results">
           <div class = "item-container">
               <div class = "item-image"></div>
               <div class = "item-desc">
-                  <div class = "item-category">{{ category }}</div>
-                  <div class = "item-title">{{ title }}</div>
+                  <div class = "item-category">category </div>
+                  <div class = "item-title">{{ d }}</div>
                   <div class = "item-price">
                       <span class = "desc-label">PRICE:</span>
-                      <span class = "price-num highlight">{{ price }}</span>
+                      <span class = "price-num highlight">price</span>
                   </div>
                   <div class = "item-rating">
                       <span class = "desc-label">RATING:</span>
-                      <span class = "rating-stars highlight" >{{ rating }}<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                      <span class = "rating-stars highlight" > rating <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
                   </div>
               </div>
               <div class = "item-relevance">
@@ -60,6 +65,10 @@
               </div>
           </div>
       </div>
+      {%endfor %}
+    <!-- {% endif %} -->
+
+
       <script src="static/script.js"></script>
     </body>
 </html>
