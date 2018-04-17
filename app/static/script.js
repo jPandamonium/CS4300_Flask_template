@@ -9,8 +9,8 @@ const gifterTitle = document.querySelector("h1");
 const homeButton = document.querySelector("#home");
 
 // event listeners
-submitButton.addEventListener("click", showLoader);
-homeButton.addEventListener("click", showHome);
+// submitButton.addEventListener("click", showLoader);
+//homeButton.addEventListener("click", showHome);
 
 // on load animation
 

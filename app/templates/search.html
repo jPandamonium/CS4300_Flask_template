@@ -9,13 +9,12 @@
     <body>
       <div class = "topcorner">
           Crystal Liu (crl95), Jerry Pan (jp884), Kathleen Li (kl769), Christina Zhao (cfz8), Claire Tang (yt338)
-          {{output_message }}
       </div>
       <h1> gifter </h1>
       <div class = "button" id = "home"><< Back to Search Page</div>
 
-
 <!-- FORM HTML -->
+<form class="form-inline global-search">
       <div class = "form active">
         <div class = "form-group">
             <span class = "form-label"><span class = "highlight">Who</span> is the gift for?</span>
@@ -35,28 +34,29 @@
               <span class = "border-bottom"></span>
             </span>
         </div>
-        <div class = "button submit" id = "query">Happy Gifting!</div>
+        <button type = "submit" class = "button submit" id = "query">Happy Gifting!</button>
+</form>
       </div>
 
       <div id="loader"></div>
 
 <!-- RESULTS HTML -->
-<!-- {% if data %} -->
-
-  {% for d in data %}
+<form class="form-inline global-search">
       <div class = "results">
+        {% if data %}
+        {% for d in data %}
           <div class = "item-container">
               <div class = "item-image"></div>
               <div class = "item-desc">
-                  <div class = "item-category">category </div>
-                  <div class = "item-title">{{ d }}</div>
+                  <div class = "item-category">name </div>
+                  <div class = "item-title">{{ d[0] }}</div>
                   <div class = "item-price">
                       <span class = "desc-label">PRICE:</span>
-                      <span class = "price-num highlight">price</span>
+                      <span class = "price-num highlight">{{ d[1] }}</span>
                   </div>
                   <div class = "item-rating">
                       <span class = "desc-label">RATING:</span>
-                      <span class = "rating-stars highlight" > rating <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+                      <span class = "rating-stars highlight" >{{ d[2] }}</span>
                   </div>
               </div>
               <div class = "item-relevance">
@@ -64,11 +64,10 @@
                   <div class = "button highlight"><i class="fas fa-thumbs-down"></i></div>
               </div>
           </div>
+          {% endfor %}
+          {% endif %}
       </div>
-      {%endfor %}
-    <!-- {% endif %} -->
-
-
+    </form>
       <script src="static/script.js"></script>
     </body>
 </html>

@@ -25,10 +25,13 @@ def search():
 		data = []
 		output_message = ''
 	else:
-		query = "calculator"
 		output_message = "Your search: " + query
-		data = calc_sort(doc_by_vocab,query)
-	return render_template('search.html', name=project_name, netid=net_id, output_message=query, data=data)
+		names, prices, ratings = calc_sort(doc_by_vocab,query)
+		data = []
+		for i in range(0,5):
+			triplet = [names[i],prices[i],ratings[i]]
+			data.append(triplet)
+	return render_template('search.html', name=project_name, netid=net_id, output_message=query, data= data )
 
 
 
