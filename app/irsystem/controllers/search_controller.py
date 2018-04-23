@@ -11,7 +11,7 @@ net_id = "Ilan Filonenko: if56"
 @irsystem.route('/', methods=['GET'])
 def search():
 	query = request.args.get('search1')
-	# query2 = request.args.get('search2')
+	query2 = request.args.get('search2')
 
 	# if not query1 and not query2:
 	# 	query = ""
@@ -21,11 +21,12 @@ def search():
 	# 	query = query2
 	# else :
 	# 	query = query1 + query2 
-	if not query:
+	if not query and not query2:
 		data = []
 		output_message = ''
 	else:
-		output_message = "Your search: " + query
+		query = query + query2
+		output_message = "Your search: " + query + query2
 		names, prices, ratings = calc_sort(doc_by_vocab,query)
 		data = []
 		for i in range(0,5):
