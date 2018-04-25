@@ -15,7 +15,7 @@
 
 <!-- FORM HTML -->
 <form class="form-inline global-search">
-      <div class = "form active">
+      <div class = "form">
         <div class = "form-group">
             <span class = "form-label"><span class = "highlight">Who</span> is the gift for?</span>
             <span class = "form-input-group">
@@ -34,6 +34,22 @@
               <span class = "border-bottom"></span>
             </span>
         </div>
+        <div class = "form-group">
+            <span class = "form-label"><span class = "highlight">What</span> is your price range?</span>
+            <span class = "form-input-group">
+              <input id="input-price" type="text" name="search3" class="form-input"
+              placeholder="min" onfocus="this.placeholder = ''"
+              onblur="this.placeholder = 'min'" >
+              <span id = "price-border" class = "border-bottom"></span>
+            </span>
+            <span class = "text">to</span>
+            <span class = "form-input-group">
+              <input id="input-price" type="text" name="search4" class="form-input"
+              placeholder="max" onfocus="this.placeholder = ''"
+              onblur="this.placeholder = 'max'" >
+              <span id = "price-border" class = "border-bottom"></span>
+            </span>
+        </div>
         <button type = "submit" class = "button submit" id = "query">Happy Gifting!</button>
 </form>
       </div>
@@ -45,14 +61,14 @@
       <div class = "results">
         {% if data %}
         {% for d in data %}
-          <div class = "item-container">
+          <div class = "item-container" data-order = "{{ data.index(d) }}">
               <div class = "item-image"></div>
               <div class = "item-desc">
                   <div class = "item-category">name </div>
                   <div class = "item-title">{{ d[0] }}</div>
                   <div class = "item-price">
                       <span class = "desc-label">PRICE:</span>
-                      <span class = "price-num highlight">{{ d[1] }}</span>
+                      <span class = "price-num highlight">${{ d[1] }}</span>
                   </div>
                   <div class = "item-rating">
                       <span class = "desc-label">RATING:</span>
@@ -68,6 +84,7 @@
           {% endif %}
       </div>
     </form>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
       <script src="static/script.js"></script>
     </body>
 </html>

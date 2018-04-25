@@ -6,6 +6,11 @@ body {
   flex-direction: column;
 }
 
+#data {
+  visibility: hidden;
+  height: 0;
+}
+
 .topcorner {
   position: absolute;
   top: 20px;
@@ -17,7 +22,8 @@ body {
 }
 
 h1 {
-  font-size: 65px;
+  font-size: 35px;
+  opacity: 0;
   font-family: PT Sans, sans-serif;
   color: #696969;
   letter-spacing: 0.15em;
@@ -29,6 +35,7 @@ h1.newpos {
   top: 20px;
   left: 50px;
   font-size: 35px;
+  opacity: 1;
 }
 
 #home {
@@ -93,6 +100,25 @@ h1.newpos {
   padding-bottom: 10px;
 }
 
+.text {
+  font-family: PT Sans, sans-serif;
+  font-size: 20px;
+  color: gray;
+  letter-spacing: 0.125em;
+  margin: 10px;
+}
+
+#input-price.form-input {
+  width: 100px;
+}
+
+#input-price.form-input:focus ~ #price-border.border-bottom {
+  left: 0;
+  width:100px;
+  visibility: visible;
+  border-top: 2px solid #c5a0c5;
+}
+
 .form-input-group {
   position: relative;
 }
@@ -145,70 +171,13 @@ input::placeholder {
   cursor: pointer;
 }
 
-/*.blinking-cursor {
-  font-weight: lighter;
-  font-family: PT Sans, sans-serif;
-  font-size: 30px;
-  color: #2E3D48;
-  -webkit-animation: 1s blink step-end infinite;
-  -moz-animation: 1s blink step-end infinite;
-  -ms-animation: 1s blink step-end infinite;
-  -o-animation: 1s blink step-end infinite;
-  animation: 1s blink step-end infinite;
-}
-
-@keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: black;
-  }
-}
-
-@-moz-keyframes blink {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: gray;
-  }
-}
-
-@-webkit-keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: gray;
-  }
-}
-
-@-ms-keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: gray;
-  }
-}
-
-@-o-keyframes "blink" {
-  from, to {
-    color: transparent;
-  }
-  50% {
-    color: gray;
-  }
-}*/
-
 /**RESULTS CSS**/
-/*.results {
-  width: 40%;
+.results {
+  width: 100%;
   visibility: hidden;
   opacity: 0;
   transition: all 1s ease-in-out;
-}*/
+}
 
 .active, #loader.active, #home.active {
   opacity: 1;
@@ -226,6 +195,7 @@ input::placeholder {
   transition: all 0.5s ease;
   margin-bottom: 40px;
   min-width: 450px;
+  max-width: 800px;
 }
 
 .item-container:hover {
@@ -282,6 +252,10 @@ input::placeholder {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#query {
+  display: grid;
 }
 
 .button {

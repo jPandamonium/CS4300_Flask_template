@@ -7,20 +7,29 @@ const form = document.querySelector(".form");
 const results = document.querySelector(".results");
 const gifterTitle = document.querySelector("h1");
 const homeButton = document.querySelector("#home");
+const filterButtons = document.querySelectorAll(".filter");
 
 // event listeners
 // submitButton.addEventListener("click", showLoader);
-//homeButton.addEventListener("click", showHome);
+homeButton.addEventListener("click", goHome);
 
-// on load animation
-
+$(document).ready(function() {
+  console.log(results.innerHTML.trim());
+  if (results.innerHTML.trim() != "") {
+    showLoader();
+  }
+  else {
+    gifterTitle.style.opacity = "1";
+    gifterTitle.style.fontSize = "65px";
+    form.classList.add("active");
+  }
+});
 
 // happy gifting button page transition
 function showLoader() {
-    if (whoText.value == "" || whatText.value == "") return;
-    loader.classList.add("active");
     form.classList.remove("active");
-    setTimeout(showResults, 2000);
+    loader.classList.add("active");
+    setTimeout(showResults, 800);
 }
 
 function showResults() {
@@ -30,6 +39,11 @@ function showResults() {
   homeButton.classList.add("active");
 }
 
+// return to form
+function goHome() {
+  window.history.back();
+}
+
 // return to home transition
 function showHome() {
   results.classList.remove("active");
@@ -37,5 +51,3 @@ function showHome() {
   homeButton.classList.remove("active");
   form.classList.add("active");
 }
-
-// append item to results
