@@ -11,7 +11,11 @@ from nltk.stem.snowball import SnowballStemmer
 from sklearn.feature_extraction.text import CountVectorizer
 import nltk.stem
 from nltk.corpus import stopwords
+import urllib2
+from empath import Empath
+import requests
 
+lexicon = Empath()
 
 
 
@@ -32,29 +36,60 @@ def tokenize(text):
 
 
 def unpickle(fileNames):
- 	file = open(fileNames[0],'rb')
+ 	file = urllib2.urlopen(fileNames[0])
 	index_to_vocab = pickle.load(file)
 	file.close()
-	file = open(fileNames[1],'rb')
+	file = urllib2.urlopen(fileNames[1])
 	vocab_to_index = pickle.load(file)
 	file.close()
-	file = open(fileNames[2],'rb')
+	file = urllib2.urlopen(fileNames[2])
 	ind_to_title = pickle.load(file)
 	file.close()
-	file = open(fileNames[3],'rb')
+	file = urllib2.urlopen(fileNames[3])
 	ind_to_price = pickle.load(file)
 	file.close()
-	file = open(fileNames[4],'rb')
+	file = urllib2.urlopen(fileNames[4])
 	ind_to_rating = pickle.load(file)
 	file.close()
-	file = open(fileNames[5],'rb')
+	file = urllib2.urlopen(fileNames[5])
 	doc_by_vocab = pickle.load(file)
 	file.close()
 	return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab
 n_feats = 5000
 
-index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab = unpickle(['/Users/claire/Desktop/final/cs4300sp2018-crl95-cfz8-jp884-kl769-yt338/ind_to_vocab.pickle','/Users/claire/Desktop/final/cs4300sp2018-crl95-cfz8-jp884-kl769-yt338/vocab_to_indx.pickle','/Users/claire/Desktop/final/cs4300sp2018-crl95-cfz8-jp884-kl769-yt338/ind_to_title.pickle',
-                           '/Users/claire/Desktop/final/cs4300sp2018-crl95-cfz8-jp884-kl769-yt338/ind_to_price.pickle', '/Users/claire/Desktop/final/cs4300sp2018-crl95-cfz8-jp884-kl769-yt338/ind_to_rating.pickle','/Users/claire/Desktop/final/cs4300sp2018-crl95-cfz8-jp884-kl769-yt338/doc_by_vocab.pickle'])
+ind_to_vocab_file = "https://storage.googleapis.com/pickles/ind_to_vocab.pickle"
+vocab_to_index_file = "https://storage.googleapis.com/pickles/vocab_to_indx.pickle"
+ind_to_title_file = "https://storage.googleapis.com/pickles/ind_to_title.pickle"
+ind_to_price_file = "https://storage.googleapis.com/pickles/ind_to_price.pickle"
+ind_to_rating_file = "https://storage.googleapis.com/pickles/ind_to_rating.pickle"
+doc_by_vocab_file = "https://storage.googleapis.com/pickles/doc_by_vocab.pickle"
+
+
+
+def jaccard(query_words, sentence):
+    A = set(query_words)
+    B = set(sentence)
+    return float(len(A.intersection(B)))/len(A.union(B))    
+
+
+
+index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab = unpickle([ind_to_vocab_file,vocab_to_index_file,ind_to_title_file,
+                           ind_to_price_file, ind_to_rating_file, doc_by_vocab_file])
+
+def query_expansion(seed):
+    resp = requests.post("http://54.148.189.209:8000/create_category", json={"terms":seed,"size":100,"model":"nytimes"})
+    results = json.loads(resp.text)
+    results=set(results)
+
+    d={}
+    for item in results:
+        score = jaccard(lexicon.analyze(item,normalize=True),lexicon.analyze("cats",normalize=True))
+        if(score>=0.1):
+            d[item]=jaccard(item,"cats")
+
+    d=sorted(d.items(), key=lambda x:x[1], reverse=True)[:5]
+    return d
+
 
 
 def vectorize_query(query):
@@ -62,6 +97,8 @@ def vectorize_query(query):
     ss = SnowballStemmer('english')
     tokens = nltk.word_tokenize(query)
     tokens = [ss.stem(i) for i  in tokens]
+    tokens = [query_expansion([i]) for i in tokens]
+    tokens = [item for sublist in tokens for item in sublist]
     stop_words = set(stopwords.words('english'))
     for i in tokens:
         if i in stop_words:
@@ -81,8 +118,6 @@ def calc_sort (matrix,query ):
     try :
         vector = vectorize_query(query)
         res = cosine_similarity(vector, matrix).reshape(-1)
-
-
         arg_sort_array = np.argsort(res)[::-1][:5]
         return [ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array]
     except ValueError:
