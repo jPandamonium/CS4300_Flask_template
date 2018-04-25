@@ -19,7 +19,7 @@
         <div class = "form-group">
             <span class = "form-label"><span class = "highlight">Who</span> is the gift for?</span>
             <span class = "form-input-group">
-              <input id="input-who" type="text" name="search1" class="form-input"
+              <input id="input-who" type="text" name="who" class="form-input"
               placeholder="e.g. friend, boss who likes cats" onfocus="this.placeholder = ''"
               onblur="this.placeholder = 'e.g. friend, boss who likes cats'" >
               <span class = "border-bottom"></span>
@@ -28,7 +28,7 @@
         <div class = "form-group">
             <span class = "form-label"><span class = "highlight">What</span> is the occasion?</span>
             <span class = "form-input-group">
-              <input id="input-what" type="text" name="search2" class="form-input"
+              <input id="input-what" type="text" name="occasion" class="form-input"
               placeholder="e.g. 21st birthday, got into college" onfocus="this.placeholder = ''"
               onblur="this.placeholder = 'e.g. 21st birthday, got into college'" >
               <span class = "border-bottom"></span>
@@ -37,14 +37,14 @@
         <div class = "form-group">
             <span class = "form-label"><span class = "highlight">What</span> is your price range?</span>
             <span class = "form-input-group">
-              <input id="input-price" type="text" name="search3" class="form-input"
+              <input id="input-price" type="text" name="min" class="form-input"
               placeholder="min" onfocus="this.placeholder = ''"
               onblur="this.placeholder = 'min'" >
               <span id = "price-border" class = "border-bottom"></span>
             </span>
             <span class = "text">to</span>
             <span class = "form-input-group">
-              <input id="input-price" type="text" name="search4" class="form-input"
+              <input id="input-price" type="text" name="max" class="form-input"
               placeholder="max" onfocus="this.placeholder = ''"
               onblur="this.placeholder = 'max'" >
               <span id = "price-border" class = "border-bottom"></span>
@@ -74,10 +74,6 @@
                       <span class = "desc-label">RATING:</span>
                       <span class = "rating-stars highlight" >{{ d[2] }}</span>
                   </div>
-              </div>
-              <div class = "item-relevance">
-                  <div class = "button highlight"><i class="fas fa-thumbs-up"></i></div>
-                  <div class = "button highlight"><i class="fas fa-thumbs-down"></i></div>
               </div>
           </div>
           {% endfor %}
