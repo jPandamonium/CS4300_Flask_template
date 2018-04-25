@@ -12,6 +12,9 @@ net_id = "Ilan Filonenko: if56"
 def search():
 	query = request.args.get('search1')
 	query2 = request.args.get('search2')
+	minprice = request.args.get('search3')
+	maxprice = request.args.get('search4')
+
 
 	# if not query1 and not query2:
 	# 	query = ""
@@ -27,10 +30,10 @@ def search():
 	else:
 		query = query + query2
 		output_message = "Your search: " + query + query2
-		names, prices, ratings = calc_sort(doc_by_vocab,query)
+		names, prices, ratings,url = calc_sort(doc_by_vocab,query,lower = minprice,upper = maxprice)
 		data = []
 		for i in range(0,5):
-			triplet = [names[i],prices[i],ratings[i]]
+			triplet = [names[i],prices[i],ratings[i],url[i]]
 			data.append(triplet)
 	return render_template('search.html', name=project_name, netid=net_id, output_message=query, data= data )
 

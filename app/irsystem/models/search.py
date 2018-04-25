@@ -59,7 +59,7 @@ def unpickle(fileNames):
     file.close()
     return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url
 
-n_feats = 5000
+n_feats = 4952
 
 ind_to_vocab_file = "https://storage.googleapis.com/pickles/ind_to_vocab.pickle"
 vocab_to_index_file = "https://storage.googleapis.com/pickles/vocab_to_indx.pickle"
@@ -98,12 +98,12 @@ def query_expansion(seed):
 
 
 def vectorize_query(query):
-    vector = np.empty(n_feats)
+    vector = np.zeros(n_feats,)
     ss = SnowballStemmer('english')
     tokens = nltk.word_tokenize(query)
     tokens = [ss.stem(i) for i  in tokens]
-    tokens = [query_expansion([i]) for i in tokens]
-    tokens = [item for sublist in tokens for item in sublist]
+    # tokens = [query_expansion([i]) for i in tokens]
+    # tokens = [item for sublist in tokens for item in sublist]
     stop_words = set(stopwords.words('english'))
     for i in tokens:
         if i in stop_words:
@@ -111,7 +111,6 @@ def vectorize_query(query):
         elif i in vocab_to_index:
             index = vocab_to_index[i]
             vector[index] += 1
-
     return vector
 
 
@@ -119,33 +118,47 @@ def vectorize_query(query):
 
 def get_sim(query, vec):
     return np.dot(query, vec )/(LA.norm(query)*LA.norm(vec))
-def calc_sort (matrix,query, lower = None, upper = None ):
-    try :
-        vector = vectorize_query(query)
-        res = cosine_similarity(vector, matrix).reshape(-1)
-        arg_sort_array = np.argsort(res)[::-1]
-        if lower is None and upper is None:
-            arg_sort_array  = arg_sort_array[:5]
-        elif lower is None :
-            temp = []
-            for i in arg_sort_array:
-                if ind_to_title[i] > upper:
-                    continue
-                else:
-                    temp.append(i)
-                    if len(temp) is 5:
-                        arg_sort_array = temp
-                        break
-        elif upper is None :
-            temp = []
-            for i in arg_sort_array:
-                if ind_to_title[i] < lower:
-                    continue
-                else:
-                    temp.append(i)
-                    if len(temp) is 5:
-                        arg_sort_array = temp
-                        break
-        return [ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array]
-    except ValueError:
-        return [0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]
+def calc_sort (matrix,query, lower  , upper ):
+    vector = vectorize_query(query)
+    res = cosine_similarity((vector), np.transpose(matrix)).reshape(-1)
+    arg_sort_array = np.argsort(res)[::-1]
+    if lower is '' and upper is '' :
+        arg_sort_array  = arg_sort_array[:5]
+    elif lower is '' or lower is None :
+        upper1 = float(upper)
+        temp = []
+        for i in arg_sort_array:
+            if float(ind_to_price[i]) > upper1:
+                continue
+            else:
+                temp.append(i)
+                if len(temp) is 5:
+                    arg_sort_array = temp
+                    break
+    elif upper is '' or upper is None  :
+        lower = float(lower)
+        temp = []
+        for i in arg_sort_array:
+            if float(ind_to_price[i]) < lower:
+                continue
+            else:
+                temp.append(i)
+                if len(temp) is 5:
+                    arg_sort_array = temp
+                    break
+    else:
+        temp = []
+        for i in arg_sort_array:
+            upper = float(upper)
+            lower = float(lower)
+            if float(ind_to_price[i]) < lower or float(ind_to_price[i]) > upper:
+                continue
+            else:
+                temp.append(i)
+                if len(temp) is 5:
+                    arg_sort_array = temp
+                    break
+
+    return [ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array]
+    # except ValueError:
+    #     return [0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]
