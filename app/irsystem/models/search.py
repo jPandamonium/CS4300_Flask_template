@@ -54,7 +54,11 @@ def unpickle(fileNames):
 	file = urllib2.urlopen(fileNames[5])
 	doc_by_vocab = pickle.load(file)
 	file.close()
-	return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab
+    file = urllib2.urlopen(fileNames[5])
+    ind_to_url = pickle.load(file)
+    file.close()
+	return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url
+
 n_feats = 5000
 
 ind_to_vocab_file = "https://storage.googleapis.com/pickles/ind_to_vocab.pickle"
@@ -63,6 +67,7 @@ ind_to_title_file = "https://storage.googleapis.com/pickles/ind_to_title.pickle"
 ind_to_price_file = "https://storage.googleapis.com/pickles/ind_to_price.pickle"
 ind_to_rating_file = "https://storage.googleapis.com/pickles/ind_to_rating.pickle"
 doc_by_vocab_file = "https://storage.googleapis.com/pickles/doc_by_vocab.pickle"
+ind_to_url_file = "https://storage.googleapis.com/pickles/ind_to_url.pickle"
 
 
 
@@ -74,7 +79,7 @@ def jaccard(query_words, sentence):
 
 
 index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab = unpickle([ind_to_vocab_file,vocab_to_index_file,ind_to_title_file,
-                           ind_to_price_file, ind_to_rating_file, doc_by_vocab_file])
+                           ind_to_price_file, ind_to_rating_file, doc_by_vocab_file,ind_to_url_file])
 
 def query_expansion(seed):
     resp = requests.post("http://54.148.189.209:8000/create_category", json={"terms":seed,"size":100,"model":"nytimes"})
@@ -114,11 +119,33 @@ def vectorize_query(query):
 
 def get_sim(query, vec):
     return np.dot(query, vec )/(LA.norm(query)*LA.norm(vec))
-def calc_sort (matrix,query ):
+def calc_sort (matrix,query, lower = None, upper = None ):
     try :
         vector = vectorize_query(query)
         res = cosine_similarity(vector, matrix).reshape(-1)
-        arg_sort_array = np.argsort(res)[::-1][:5]
-        return [ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array]
+        arg_sort_array = np.argsort(res)[::-1]
+        if lower is None and upper = None:
+            arg_sort_array  = arg_sort_array[:5]
+        elif lower is None :
+            temp = []
+            for i in arg_sort_array:
+                if ind_to_title[i] > upper:
+                    continue
+                else:
+                    temp.append(i)
+                    if len(temp) is 5:
+                        arg_sort_array = temp
+                        break
+        elif upper is None :
+            temp = []
+            for i in arg_sort_array:
+                if ind_to_title[i] < lower:
+                    continue
+                else:
+                    temp.append(i)
+                    if len(temp) is 5:
+                        arg_sort_array = temp
+                        break
+        return [ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array]
     except ValueError:
         return [0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]
