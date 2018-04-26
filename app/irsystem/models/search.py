@@ -13,7 +13,7 @@ import nltk.stem
 from nltk.corpus import stopwords
 import urllib2
 # from empath import Empath
-import requests
+# import requests
 
 # lexicon = Empath()
 
