@@ -3,5 +3,5 @@ flask:
     ports:
       - "5000:5000"
     environment:
-    - APP_SETTINGS=config.ProductionConfig
+    - APP_SETTINGS=config.DevelopmentConfig
     # - DATABASE_URL=postgresql://localhost/my_app_db
