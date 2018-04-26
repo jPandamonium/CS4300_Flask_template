@@ -12,10 +12,10 @@ from sklearn.feature_extraction.text import CountVectorizer
 import nltk.stem
 from nltk.corpus import stopwords
 import urllib2
-from empath import Empath
+# from empath import Empath
 import requests
 
-lexicon = Empath()
+# lexicon = Empath()
 
 
 
@@ -81,19 +81,19 @@ def jaccard(query_words, sentence):
 index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab, ind_to_url = unpickle([ind_to_vocab_file,vocab_to_index_file,ind_to_title_file,
                            ind_to_price_file, ind_to_rating_file, doc_by_vocab_file,ind_to_url_file])
 
-def query_expansion(seed):
-    resp = requests.post("http://54.148.189.209:8000/create_category", json={"terms":seed,"size":100,"model":"nytimes"})
-    results = json.loads(resp.text)
-    results=set(results)
+# def query_expansion(seed):
+#     resp = requests.post("http://54.148.189.209:8000/create_category", json={"terms":seed,"size":100,"model":"nytimes"})
+#     results = json.loads(resp.text)
+#     results=set(results)
 
-    d={}
-    for item in results:
-        score = jaccard(lexicon.analyze(item,normalize=True),lexicon.analyze("cats",normalize=True))
-        if(score>=0.1):
-            d[item]=jaccard(item,"cats")
+#     d={}
+#     for item in results:
+#         score = jaccard(lexicon.analyze(item,normalize=True),lexicon.analyze("cats",normalize=True))
+#         if(score>=0.1):
+#             d[item]=jaccard(item,"cats")
 
-    d=sorted(d.items(), key=lambda x:x[1], reverse=True)[:5]
-    return d
+#     d=sorted(d.items(), key=lambda x:x[1], reverse=True)[:5]
+#     return d
 
 
 
