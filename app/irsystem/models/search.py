@@ -59,7 +59,7 @@ def unpickle(fileNames):
     file.close()
     return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url
 
-n_feats = 4952
+n_feats = 411
 
 ind_to_vocab_file = "https://storage.googleapis.com/pickles/ind_to_vocab.pickle"
 vocab_to_index_file = "https://storage.googleapis.com/pickles/vocab_to_indx.pickle"
@@ -149,15 +149,21 @@ def calc_sort (matrix,query, lower  , upper ):
     else:
         temp = []
         for i in arg_sort_array:
+            
             upper = float(upper)
             lower = float(lower)
-            if float(ind_to_price[i]) < lower or float(ind_to_price[i]) > upper:
+            try:
+                if float(ind_to_price[i]) < lower or float(ind_to_price[i]) > upper:
+                    continue
+            except KeyError:
                 continue
+
             else:
                 temp.append(i)
                 if len(temp) is 5:
                     arg_sort_array = temp
                     break
+
 
     return [ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array]
     # except ValueError:
