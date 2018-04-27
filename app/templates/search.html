@@ -65,7 +65,7 @@
         {% if data %}
         {% for d in data %}
           <div class = "item-container" data-order = "{{ data.index(d) }}">
-              <div class = "item-image"></div>
+              <div class = "item-image"><img src = "{{ d[3] }}"></div>
               <div class = "item-desc">
                   <div class = "item-category">name </div>
                   <div class = "item-title">{{ d[0] }}</div>
@@ -76,6 +76,14 @@
                   <div class = "item-rating">
                       <span class = "desc-label">RATING:</span>
                       <span class = "rating-stars highlight" >{{ d[2] }}</span>
+                  </div>
+                  <div class = "item-score">
+                      <span class = "desc-label">SCORE:</span>
+                      <span class = "rating-stars highlight" >###</span>
+                  </div>
+                  <div class = "item-review">
+                      <span class = "desc-label">REVIEW:</span>
+                      <span class = "rating-stars highlight" >review</span>
                   </div>
               </div>
           </div>

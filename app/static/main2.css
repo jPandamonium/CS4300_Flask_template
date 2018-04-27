@@ -232,6 +232,10 @@ input::placeholder {
   text-transform: lowercase;
 }
 
+.item-review {
+  border-top: 1px solid #C0C0C0;
+}
+
 .highlight {
   font-family: Lora, sans-serif;
   color: #c5a0c5;
