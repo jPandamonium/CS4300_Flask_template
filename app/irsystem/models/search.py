@@ -120,7 +120,7 @@ def get_sim(query, vec):
     return np.dot(query, vec )/(LA.norm(query)*LA.norm(vec))
 def calc_sort (matrix,query, lower  , upper ):
     vector = vectorize_query(query)
-    res = cosine_similarity((vector), np.transpose(matrix)).reshape(-1)
+    res = cosine_similarity((vector), (matrix)).reshape(-1)
     arg_sort_array = np.argsort(res)[::-1]
     if lower is '' and upper is '' :
         arg_sort_array  = arg_sort_array[:5]
