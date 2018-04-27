@@ -6,3 +6,4 @@ universal_tagset
 punkt
 averaged_perceptron_tagger_ru
 stopwords
+tokenize 
