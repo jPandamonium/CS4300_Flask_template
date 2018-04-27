@@ -9,5 +9,5 @@ ADD manage.py /service/manage.py
 ADD requirements.txt /service/requirements.txt
 WORKDIR /service/
 RUN pip install -r requirements.txt
-RUN python -m nltk.downloader -d /usr/share/nltk_data all
+RUN python -m nltk.downloader -d /usr/share/nltk_data punkt
 CMD python -u app.py $APP_SETTINGS $DATABASE_URL
