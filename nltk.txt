@@ -7,3 +7,4 @@ punkt
 averaged_perceptron_tagger_ru
 stopwords
 tokenize 
+stem
