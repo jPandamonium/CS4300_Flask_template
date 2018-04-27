@@ -59,7 +59,7 @@ def unpickle(fileNames):
     file.close()
     return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url
 
-n_feats = 5000
+n_feats = 3000
 
 ind_to_vocab_file = "https://storage.googleapis.com/pickles/ind_to_vocab.pickle"
 vocab_to_index_file = "https://storage.googleapis.com/pickles/vocab_to_indx.pickle"
@@ -111,7 +111,7 @@ def vectorize_query(query):
         elif i in vocab_to_index:
             index = vocab_to_index[i]
             vector[index] += 1
-    return vector
+    return np.transpose(vector)
 
 
 
