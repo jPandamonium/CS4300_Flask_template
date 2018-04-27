@@ -10,4 +10,6 @@ ADD requirements.txt /service/requirements.txt
 WORKDIR /service/
 RUN pip install -r requirements.txt
 RUN python -m nltk.downloader -d /usr/share/nltk_data punkt
+RUN python -m nltk.downloader -d /usr/share/nltk_data stopwords
+
 CMD python -u app.py $APP_SETTINGS $DATABASE_URL
