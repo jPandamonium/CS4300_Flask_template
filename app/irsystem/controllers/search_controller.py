@@ -24,9 +24,9 @@ def search():
 	else:
 		query = query + occasion
 		output_message = "Your search: " + query
-		names, prices, ratings , url= calc_sort(doc_by_vocab,query,min_price,max_price)
+		names, prices, ratings , url,e = calc_sort(doc_by_vocab,query,min_price,max_price)
 		data = []
 		for i in range(0,5):
-			triplet = [names[i],prices[i],ratings[i],url[i]]
+			triplet = [names[i],prices[i],ratings[i],url[i],e[i]]
 			data.append(triplet)
 	return render_template('search.html', name=project_name, netid=net_id, output_message=query, data= data )

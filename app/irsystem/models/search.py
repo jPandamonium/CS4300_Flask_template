@@ -19,19 +19,7 @@ import urllib2
 
 
 
-def tokenize(text):
-    """Returns a list of words that make up the text.
-    
-    Note: for simplicity, lowercase everything.
-    Requirement: Use Regex to satisfy this function
-    
-    Params: {text: String}
-    Returns: Array
-    """
-    lowertext = text.lower()
-    
-    tokens = re.findall(r'[a-z]+', lowertext)
-    return tokens
+
 
 
 
@@ -115,16 +103,14 @@ def vectorize_query(query):
 
 
 
-
-def get_sim(query, vec):
-    return np.dot(query, vec )/(LA.norm(query)*LA.norm(vec))
-def calc_sort (matrix,query, lower  , upper ):
+def calc_sort (matrix,query, lower = 0 , upper = None ):
     vector = vectorize_query(query)
     res = cosine_similarity((vector), (matrix)).reshape(-1)
     arg_sort_array = np.argsort(res)[::-1]
-    if lower is '' and upper is '' :
+    top_scores = np.sort(res)[::-1]
+    if lower is 0 and upper is None :
         arg_sort_array  = arg_sort_array[:5]
-    elif lower is '' or lower is None :
+    elif lower is 0 :
         upper1 = float(upper)
         temp = []
         for i in arg_sort_array:
@@ -135,7 +121,7 @@ def calc_sort (matrix,query, lower  , upper ):
                 if len(temp) is 5:
                     arg_sort_array = temp
                     break
-    elif upper is '' or upper is None  :
+    elif  upper is None  :
         lower = float(lower)
         temp = []
         for i in arg_sort_array:
@@ -165,6 +151,4 @@ def calc_sort (matrix,query, lower  , upper ):
                     break
 
 
-    return [ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array]
-    # except ValueError:
-    #     return [0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]
+    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],top_scores[:5])
