@@ -85,6 +85,7 @@ index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_
 
 
 
+
 def vectorize_query(query):
     vector = np.zeros(n_feats,)
     ss = SnowballStemmer('english')
@@ -103,6 +104,8 @@ def vectorize_query(query):
 
 
 
+
+
 def calc_sort (matrix,query, lower = 0 , upper = None ):
     vector = vectorize_query(query)
     res = cosine_similarity((vector), (matrix)).reshape(-1)
@@ -111,17 +114,17 @@ def calc_sort (matrix,query, lower = 0 , upper = None ):
     if lower is 0 and upper is None :
         arg_sort_array  = arg_sort_array[:5]
     elif lower is 0 :
-        upper1 = float(upper)
+        upper = float(upper)
         temp = []
         for i in arg_sort_array:
-            if float(ind_to_price[i]) > upper1:
+            if float(ind_to_price[i]) > upper:
                 continue
             else:
                 temp.append(i)
                 if len(temp) is 5:
                     arg_sort_array = temp
                     break
-    elif  upper is None  :
+    elif upper is None  :
         lower = float(lower)
         temp = []
         for i in arg_sort_array:
@@ -134,16 +137,11 @@ def calc_sort (matrix,query, lower = 0 , upper = None ):
                     break
     else:
         temp = []
-        for i in arg_sort_array:
-            
-            upper = float(upper)
-            lower = float(lower)
-            try:
-                if float(ind_to_price[i]) < lower or float(ind_to_price[i]) > upper:
+        upper = float(upper)
+        lower = float(lower)
+        for i in arg_sort_array:    
+            if float(ind_to_price[i]) < lower or float(ind_to_price[i]) > upper:
                     continue
-            except KeyError:
-                continue
-
             else:
                 temp.append(i)
                 if len(temp) is 5:
