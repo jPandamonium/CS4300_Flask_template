@@ -45,7 +45,10 @@ def unpickle(fileNames):
     file = urllib2.urlopen(fileNames[6])
     ind_to_url = pickle.load(file)
     file.close()
-    return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url
+    file = urllib2.urlopen(fileNames[7])
+    asin_dic = pickle.load(file)
+    file.close()
+    return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url,asin_dic
 
 n_feats = 3000
 
@@ -56,7 +59,7 @@ ind_to_price_file = "https://storage.googleapis.com/pickles/ind_to_price.pickle"
 ind_to_rating_file = "https://storage.googleapis.com/pickles/ind_to_rating.pickle"
 doc_by_vocab_file = "https://storage.googleapis.com/pickles/doc_by_vocab.pickle"
 ind_to_url_file = "https://storage.googleapis.com/pickles/ind_to_url.pickle"
-
+asin_dic_file = "https://storage.googleapis.com/pickles/asin_dic.pickle"
 
 
 def jaccard(query_words, sentence):
@@ -66,8 +69,8 @@ def jaccard(query_words, sentence):
 
 
 
-index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab, ind_to_url = unpickle([ind_to_vocab_file,vocab_to_index_file,ind_to_title_file,
-                           ind_to_price_file, ind_to_rating_file, doc_by_vocab_file,ind_to_url_file])
+index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab, ind_to_url,asin_dic = unpickle([ind_to_vocab_file,vocab_to_index_file,ind_to_title_file,
+                           ind_to_price_file, ind_to_rating_file, doc_by_vocab_file,ind_to_url_file,asin_dic_file])
 
 # def query_expansion(seed):
 #     resp = requests.post("http://54.148.189.209:8000/create_category", json={"terms":seed,"size":100,"model":"nytimes"})
@@ -101,6 +104,8 @@ def vectorize_query(query):
             index = vocab_to_index[i]
             vector[index] += 1
     return np.transpose(vector)
+
+
 
 
 
@@ -149,4 +154,4 @@ def calc_sort (matrix,query, lower = 0 , upper = None ):
                     break
 
 
-    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],top_scores[:5])
+    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],top_scores[:5],[asin_dic[i] for i in arg_sort_array])
