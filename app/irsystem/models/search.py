@@ -48,7 +48,10 @@ def unpickle(fileNames):
     file = urllib2.urlopen(fileNames[7])
     asin_dic = pickle.load(file)
     file.close()
-    return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url,asin_dic
+    file = urllib2.urlopen(fileNames[8])
+    text_dic = pickle.load(file)
+    file.close()
+    return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url,asin_dic,text_dic
 
 n_feats = 3000
 
@@ -60,6 +63,7 @@ ind_to_rating_file = "https://storage.googleapis.com/pickles/ind_to_rating.pickl
 doc_by_vocab_file = "https://storage.googleapis.com/pickles/doc_by_vocab.pickle"
 ind_to_url_file = "https://storage.googleapis.com/pickles/ind_to_url.pickle"
 asin_dic_file = "https://storage.googleapis.com/pickles/asin_dic.pickle"
+text_dic_file = "https://storage.googleapis.com/pickles/text_dic.pickle"
 
 
 def jaccard(query_words, sentence):
@@ -69,8 +73,8 @@ def jaccard(query_words, sentence):
 
 
 
-index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab, ind_to_url,asin_dic = unpickle([ind_to_vocab_file,vocab_to_index_file,ind_to_title_file,
-                           ind_to_price_file, ind_to_rating_file, doc_by_vocab_file,ind_to_url_file,asin_dic_file])
+index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab, ind_to_url,asin_dic,text_dic = unpickle([ind_to_vocab_file,vocab_to_index_file,ind_to_title_file,
+                           ind_to_price_file, ind_to_rating_file, doc_by_vocab_file,ind_to_url_file,asin_dic_file,text_dic_file])
 
 # def query_expansion(seed):
 #     resp = requests.post("http://54.148.189.209:8000/create_category", json={"terms":seed,"size":100,"model":"nytimes"})
@@ -153,5 +157,5 @@ def calc_sort (matrix,query, lower = 0 , upper = None ):
                     arg_sort_array = temp
                     break
 
-
-    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],top_scores[:5],[asin_dic[i] for i in arg_sort_array])
+    asin_array = [asin_dic[i] for i in arg_sort_array]
+    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],top_scores[:5],asin_array,[text_dic[j] for j in asin_array])
