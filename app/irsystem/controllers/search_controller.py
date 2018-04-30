@@ -24,10 +24,10 @@ def search():
 	else:
 		query = query + occasion
 		output_message = "Your search: " + query
-		names, prices, ratings , url, scores , asins,texts= calc_sort(doc_by_vocab,query,str(min_price,),str(max_price.strip()))
+		names, prices, ratings , url, scores , asins,texts= calc_sort(query,str(min_price,),str(max_price.strip()))
 		data = []
 		prefix = "https://www.amazon.com/gp/product/"
 		for i in range(0,5):
-			triplet = [names[i],prices[i],ratings[i],url[i],float(scores[i]),prefix+asins[i], texts[i]]
+			triplet = [names[i].strip(),prices[i],ratings[i],url[i],(scores[i]),prefix+asins[i], texts[i].strip()]
 			data.append(triplet)
 	return render_template('search.html', name=project_name, netid=net_id, output_message=query, data= data )

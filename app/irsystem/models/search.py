@@ -24,36 +24,34 @@ import urllib2
 
 
 def unpickle(fileNames):
+ 
     file = urllib2.urlopen(fileNames[0])
-    index_to_vocab = pickle.load(file)
-    file.close()
-    file = urllib2.urlopen(fileNames[1])
     vocab_to_index = pickle.load(file)
     file.close()
-    file = urllib2.urlopen(fileNames[2])
+    file = urllib2.urlopen(fileNames[1])
     ind_to_title = pickle.load(file)
     file.close()
-    file = urllib2.urlopen(fileNames[3])
+    file = urllib2.urlopen(fileNames[2])
     ind_to_price = pickle.load(file)
     file.close()
-    file = urllib2.urlopen(fileNames[4])
+    file = urllib2.urlopen(fileNames[3])
     ind_to_rating = pickle.load(file)
     file.close()
-    file = urllib2.urlopen(fileNames[5])
+    file = urllib2.urlopen(fileNames[4])
     doc_by_vocab = pickle.load(file)
     file.close()
-    file = urllib2.urlopen(fileNames[6])
+    file = urllib2.urlopen(fileNames[5])
     ind_to_url = pickle.load(file)
     file.close()
-    file = urllib2.urlopen(fileNames[7])
+    file = urllib2.urlopen(fileNames[6])
     asin_dic = pickle.load(file)
     file.close()
-    file = urllib2.urlopen(fileNames[8])
+    file = urllib2.urlopen(fileNames[7])
     text_dic = pickle.load(file)
     file.close()
-    return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url,asin_dic,text_dic
+    return  vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url,asin_dic,text_dic
 
-n_feats = 1000
+n_feats = 1500
 
 ind_to_vocab_file = "https://storage.googleapis.com/pickles/ind_to_vocab.pickle"
 vocab_to_index_file = "https://storage.googleapis.com/pickles/vocab_to_indx.pickle"
@@ -73,7 +71,7 @@ def jaccard(query_words, sentence):
 
 
 
-index_to_vocab, vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab, ind_to_url,asin_dic,text_dic = unpickle([ind_to_vocab_file,vocab_to_index_file,ind_to_title_file,
+vocab_to_index,ind_to_title,ind_to_price, ind_to_rating, doc_by_vocab, ind_to_url,asin_dic,text_dic = unpickle([vocab_to_index_file,ind_to_title_file,
                            ind_to_price_file, ind_to_rating_file, doc_by_vocab_file,ind_to_url_file,asin_dic_file,text_dic_file])
 
 # def query_expansion(seed):
@@ -115,11 +113,18 @@ def vectorize_query(query):
 
 
 
-def calc_sort (matrix,query, lower = 0 , upper = None ):
+def calc_sort (query, lower = 0 , upper = None ):
     vector = vectorize_query(query)
-    res = cosine_similarity((vector), (matrix)).reshape(-1)
+    res = cosine_similarity(vector, doc_by_vocab)
+    res_sec = res.tolist()
+    flatenned =  [item for sublist in res_sec for item in sublist]
+    res = np.array(flatenned)
     arg_sort_array = np.argsort(res)[::-1]
+
+    arg_sort_array = arg_sort_array.tolist()
+
     top_scores = np.sort(res)[::-1]
+    top_scores = top_scores.tolist()
     if lower is '' and upper is '' :
         arg_sort_array  = arg_sort_array[:5]
     elif lower is '' or lower is None:
@@ -158,4 +163,4 @@ def calc_sort (matrix,query, lower = 0 , upper = None ):
                     break
 
     asin_array = [asin_dic[i] for i in arg_sort_array]
-    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],(top_scores[:5]),asin_array,[text_dic[j] for j in asin_array])
+    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],top_scores[:5],asin_array,[text_dic[j] for j in asin_array])
