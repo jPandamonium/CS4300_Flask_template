@@ -120,9 +120,9 @@ def calc_sort (matrix,query, lower = 0 , upper = None ):
     res = cosine_similarity((vector), (matrix)).reshape(-1)
     arg_sort_array = np.argsort(res)[::-1]
     top_scores = np.sort(res)[::-1]
-    if lower is 0 and upper is None :
+    if lower is '' and upper is '' :
         arg_sort_array  = arg_sort_array[:5]
-    elif lower is 0 :
+    elif lower is '' or lower is None:
         upper = float(upper)
         temp = []
         for i in arg_sort_array:
@@ -133,7 +133,7 @@ def calc_sort (matrix,query, lower = 0 , upper = None ):
                 if len(temp) is 5:
                     arg_sort_array = temp
                     break
-    elif upper is None  :
+    elif upper is ''  or upper is None :
         lower = float(lower)
         temp = []
         for i in arg_sort_array:
@@ -158,4 +158,4 @@ def calc_sort (matrix,query, lower = 0 , upper = None ):
                     break
 
     asin_array = [asin_dic[i] for i in arg_sort_array]
-    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],top_scores[:5],asin_array,[text_dic[j] for j in asin_array])
+    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],(top_scores[:5]),asin_array,[text_dic[j] for j in asin_array])

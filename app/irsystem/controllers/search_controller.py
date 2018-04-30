@@ -24,7 +24,7 @@ def search():
 	else:
 		query = query + occasion
 		output_message = "Your search: " + query
-		names, prices, ratings , url, scores , asins,texts= calc_sort(doc_by_vocab,query,min_price,max_price)
+		names, prices, ratings , url, scores , asins,texts= calc_sort(doc_by_vocab,query,str(min_price,),str(max_price.strip()))
 		data = []
 		prefix = "https://www.amazon.com/gp/product/"
 		for i in range(0,5):
