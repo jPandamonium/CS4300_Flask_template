@@ -53,7 +53,7 @@ def unpickle(fileNames):
     file.close()
     return index_to_vocab, vocab_to_index,ind_to_title,ind_to_price,ind_to_rating,doc_by_vocab,ind_to_url,asin_dic,text_dic
 
-n_feats = 3000
+n_feats = 2000
 
 ind_to_vocab_file = "https://storage.googleapis.com/pickles/ind_to_vocab.pickle"
 vocab_to_index_file = "https://storage.googleapis.com/pickles/vocab_to_indx.pickle"
