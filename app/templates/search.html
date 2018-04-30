@@ -64,28 +64,28 @@
       <div class = "results">
         {% if data %}
         {% for d in data %}
-        <div onclick="location.href='{{ d[5] }};" class = "item-container">
-                    <div class = "item-image"><img src = "{{ d[3] }}"></div>
-                    <div class = "item-desc">
-                        <div class = "item-score">
-                            <span class = "desc-label">SCORE:</span>
-                            <span class = "rating-stars highlight" >{{ d[4] }}</span>
-                        </div>
-                        <div class = "item-title">{{ d[0] }}</div>
-                        <div class = "item-price">
-                            <span class = "desc-label">PRICE:</span>
-                            <span class = "price-num highlight">${{ d[1] }}</span>
-                        </div>
-                        <div class = "item-rating">
-                            <span class = "desc-label">RATING:</span>
-                            <span class = "rating-stars highlight" >{{ d[2] }}</span>
-                        </div>
-                    </div>
-                    <div class = "item-review">
-                        <span class = "desc-label">REVIEW:</span>
-                        <span class = "rating-stars highlight" > {{ d[6] }} </span>
-                    </div>
-                </div>
+        <div onclick="location.href='{{ d[5] }}';" class = "item-container">
+                  <div class = "item-image"><img src = "{{ d[3] }}"></div>
+                  <div class = "item-desc">
+                      <div class = "item-score">
+                          <span class = "desc-label">SCORE:</span>
+                          <span class = "rating-stars highlight" >{{ d[4] }}</span>
+                      </div>
+                      <div class = "item-title">{{ d[0] }}</div>
+                      <div class = "item-price">
+                          <span class = "desc-label">PRICE:</span>
+                          <span class = "price-num highlight">${{ d[1] }}</span>
+                      </div>
+                      <div class = "item-rating">
+                          <span class = "desc-label">RATING:</span>
+                          <span class = "rating-stars highlight" >{{ d[2] }}</span>
+                      </div>
+                  </div>
+                  <div class = "item-review">
+                      <span class = "desc-label">REVIEW:</span>
+                      <span class = "rating-stars highlight" > {{ d[6] }}</span>
+                  </div>
+              </div>
           {% endfor %}
           {% endif %}
       </div>

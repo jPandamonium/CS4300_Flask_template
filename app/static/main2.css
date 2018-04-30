@@ -189,15 +189,15 @@ input::placeholder {
 }
 
 .item-container {
-  height: 250px;
+  height: 340px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   background-color: white;
   transition: all 0.5s ease;
   margin-bottom: 40px;
-  min-width: 800px;
-  max-width: 800px;
+  min-width: 850px;
+  max-width: 850px;
   overflow: hidden;
 }
 
@@ -226,7 +226,10 @@ img {
 
 .item-desc {
   flex-grow: 3;
-  padding: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  width: 60%;
 }
 .item-title {
   font-size: 20px;
@@ -235,7 +238,9 @@ img {
   text-transform: lowercase;
   letter-spacing: 0.125em;
   line-height: 25px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  border: 1px solid gray;
+  max-height: 30%;
 }
 
 .item-category, .desc-label {
@@ -247,10 +252,10 @@ img {
 
 .item-review {
   border-top: 1px solid #C0C0C0;
-  flex-grow: 2;
+  flex-grow: 1;
   margin-right: 20px;
   margin-left: 20px;
-  padding-top: 20px;
+  padding-top: 10px;
   overflow: scroll;
   width: 100%;
   height: 25%;
