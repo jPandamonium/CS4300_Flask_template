@@ -135,7 +135,7 @@ def calc_sort (query, lower = 0 , upper = None ):
                 continue
             else:
                 temp.append(i)
-                if len(temp) is 5:
+                if len(temp) is 20:
                     arg_sort_array = temp
                     break
     elif upper is ''  or upper is None :
@@ -146,7 +146,7 @@ def calc_sort (query, lower = 0 , upper = None ):
                 continue
             else:
                 temp.append(i)
-                if len(temp) is 5:
+                if len(temp) is 20:
                     arg_sort_array = temp
                     break
     else:
@@ -158,7 +158,7 @@ def calc_sort (query, lower = 0 , upper = None ):
                     continue
             else:
                 temp.append(i)
-                if len(temp) is 5:
+                if len(temp) is 20:
                     arg_sort_array = temp
                     break
 
