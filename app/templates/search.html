@@ -17,7 +17,7 @@
 <form class="form-inline global-search">
       <div class = "form">
         <div class = "form-group">
-            <span class = "form-label"><span class = "highlight">Who</span> is the gift for?</span>
+            <span class = "form-label"><span class = "highlight">Describe who</span> the gift is for:</span>
             <span class = "form-input-group">
               <input id="input-who" type="text" name="who" class="form-input"
               placeholder="e.g. friend, boss who likes cats" onfocus="this.placeholder = ''"
@@ -26,7 +26,7 @@
             </span>
         </div>
         <div class = "form-group">
-            <span class = "form-label"><span class = "highlight">What</span> is the occasion?</span>
+            <span class = "form-label"><span class = "highlight">What</span> is the occasion:</span>
             <span class = "form-input-group">
               <input id="input-what" type="text" name="occasion" class="form-input"
               placeholder="e.g. 21st birthday, got into college" onfocus="this.placeholder = ''"
@@ -35,13 +35,12 @@
             </span>
         </div>
         <div class = "form-group">
-            <span class = "form-label"><span class = "highlight">What</span> is your price range?</span>
+            <span class = "form-label"><span class = "highlight">What</span> is your price range:</span>
             <span class = "form-input-group">
 
               <input id="input-price" type="text" name="min" class="form-input"
-
               placeholder="min" onfocus="this.placeholder = ''"
-              onblur="this.placeholder = 'min'" >
+              onblur="this.placeholder = 'min'" value = "">
               <span id = "price-border" class = "border-bottom"></span>
             </span>
             <span class = "text">to</span>
@@ -49,7 +48,7 @@
 
               <input id="input-price" type="text" name="max" class="form-input"
               placeholder="max" onfocus="this.placeholder = ''"
-              onblur="this.placeholder = 'max'" >
+              onblur="this.placeholder = 'max'" value = "">
               <span id = "price-border" class = "border-bottom"></span>
             </span>
         </div>
@@ -64,28 +63,28 @@
       <div class = "results">
         {% if data %}
         {% for d in data %}
-        <div onclick="location.href='{{ d[5] }}';" class = "item-container">
-                  <div class = "item-image"><img src = "{{ d[3] }}"></div>
-                  <div class = "item-desc">
-                      <div class = "item-score">
-                          <span class = "desc-label">SCORE:</span>
-                          <span class = "rating-stars highlight" >{{ d[4] }}</span>
-                      </div>
-                      <div class = "item-title">{{ d[0] }}</div>
-                      <div class = "item-price">
-                          <span class = "desc-label">PRICE:</span>
-                          <span class = "price-num highlight">${{ d[1] }}</span>
-                      </div>
-                      <div class = "item-rating">
-                          <span class = "desc-label">RATING:</span>
-                          <span class = "rating-stars highlight" >{{ d[2] }}</span>
-                      </div>
+        <div onclick="window.open('{{ d[5] }}', '_blank');" class = "item-container">
+              <div class = "item-image"><img src = "{{ d[3] }}"></div>
+              <div class = "item-desc">
+                  <div class = "item-score">
+                      <span class = "desc-label">SCORE:</span>
+                      <span class = "rating-stars highlight" >{{ d[4] }}</span>
                   </div>
-                  <div class = "item-review">
-                      <span class = "desc-label">REVIEW:</span>
-                      <span class = "rating-stars highlight" > {{ d[6] }}</span>
+                  <div class = "item-title">{{ d[0] }}</div>
+                  <div class = "item-price">
+                      <span class = "desc-label">PRICE:</span>
+                      <span class = "price-num highlight">${{ d[1] }}</span>
+                  </div>
+                  <div class = "item-rating">
+                      <span class = "desc-label">RATING:</span>
+                      <span class = "rating-stars highlight" >{{ d[2] }}</span>
                   </div>
               </div>
+              <div class = "item-review">
+                  <span class = "desc-label">REVIEW:</span>
+                  <span class = "rating-stars highlight" > {{ d[6] }}</span>
+              </div>
+          </div>
           {% endfor %}
           {% endif %}
       </div>

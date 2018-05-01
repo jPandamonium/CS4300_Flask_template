@@ -215,8 +215,9 @@ a {
   flex-grow: 2;
   background-color: white;
   margin: 20px;
-  min-width: 140px;
-  max-width: 140px;
+  min-width: 160px;
+  max-width: 160px;
+  max-height: 180px;
 }
 
 img {
