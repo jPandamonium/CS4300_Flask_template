@@ -163,4 +163,4 @@ def calc_sort (query, lower = 0 , upper = None ):
                     break
 
     asin_array = [asin_dic[i] for i in arg_sort_array]
-    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],top_scores[:5],asin_array,[text_dic[j] for j in asin_array])
+    return ([ind_to_title[i] for i in arg_sort_array] , [ind_to_price[i] for i in arg_sort_array], [ind_to_rating[i] for i in arg_sort_array],[ind_to_url[i] for i in arg_sort_array],top_scores[:20],asin_array,[text_dic[j] for j in asin_array])
