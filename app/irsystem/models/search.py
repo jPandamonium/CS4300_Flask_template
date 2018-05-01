@@ -126,7 +126,7 @@ def calc_sort (query, lower = 0 , upper = None ):
     top_scores = np.sort(res)[::-1]
     top_scores = top_scores.tolist()
     if lower is '' and upper is '' :
-        arg_sort_array  = arg_sort_array[:5]
+        arg_sort_array  = arg_sort_array[:20]
     elif lower is '' or lower is None:
         upper = float(upper)
         temp = []
