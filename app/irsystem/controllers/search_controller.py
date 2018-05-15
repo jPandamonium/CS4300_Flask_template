@@ -22,7 +22,7 @@ def search():
 		data = []
 		output_message = ''
 	else:
-		query = query + occasion
+		query = query + " " + occasion
 		output_message = "Your search: " + query
 		names, prices, ratings , url, scores , asins,texts= calc_sort(query,str(min_price,),str(max_price.strip()))
 		data = []
